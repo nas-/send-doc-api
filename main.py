@@ -16,7 +16,7 @@ DATAPATH = r'\data'
 CONCURRENCY = 5
 
 os.chdir(BASEPATH)
-
+asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 
 class Scanner(object):
     def __init__(self, path, concurrency):

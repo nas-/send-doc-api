@@ -3,6 +3,7 @@ import os
 from datetime import datetime
 from glob import glob
 from typing import Union
+import argparse
 
 import aiohttp
 import requests
@@ -17,6 +18,7 @@ CONCURRENCY = 5
 
 os.chdir(BASEPATH)
 asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+
 
 class Scanner(object):
     def __init__(self, path, concurrency):
@@ -44,10 +46,14 @@ class Scanner(object):
                 Listing.query.session.flush()
 
     def scan(self, number, sync):
+        now = datetime.now()
         if sync:
             self.send_files_to_api_sync(number)
         else:
             self.send_files_to_api_async(number)
+        elapsed = datetime.now()
+        seconds = (elapsed - now).seconds
+        print(f'Processed {number} documents in {seconds=}. Average {round(number / seconds, 3)} documents per second')
 
     def send_files_to_api_async(self, number):
         filenames = self._pick_files_to_process(number)
@@ -131,10 +137,10 @@ class Scanner(object):
 
 
 if __name__ == '__main__':
-    now = datetime.now()
-    scanner = Scanner(f'{BASEPATH}{DATAPATH}', CONCURRENCY)
-    print('--------')
-    scanner.scan(5, sync=False)
-    elapsed = datetime.now()
-    seconds = elapsed - now
-    print(f'-------- {seconds}')
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-sync', action="store_true", default=False, help="Sync or async operation")
+    parser.add_argument('-number', type=int, default=5, help='Number of documents to scan')
+    parser.add_argument('-rate', type=int, default=CONCURRENCY, help='Max concurrency for asyncio')
+    args = parser.parse_args()
+    scanner = Scanner(f'{BASEPATH}{DATAPATH}', args.rate)
+    scanner.scan(args.number, sync=args.sync)

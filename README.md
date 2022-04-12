@@ -11,10 +11,21 @@ Simple script that sends PDF files to an API through Post requests, and stores t
 
 **DATAPATH** = Relative path from _BASEPATH_ for the documents to scan.
 
-**CONCURRENCY** = 5 Max concurrency Aiohttp should use. Only used in async mode.
+#Usage
+## Command line
+Set the variables above to what you need.
 
+Run the tool from the command line
+```
+usage: main.py [-h] [-sync] [-number NUMBER] [-rate RATE]
+optional arguments:
+  -h, --help      show this help message and exit
+  -sync           Sync or async operation
+  -number NUMBER  Number of documents to scan
+  -rate RATE      Max concurrency for asyncio
+```
 
-#Scanner
+##Scanner
 Main class of the scanner
 
 Main method is Scan. 
@@ -24,3 +35,4 @@ Main method is Scan.
 **sync**-> bool, true for sync operation (trough request library), False for async (Aiohttp).
 
 **number**-> number of documents to scan.
+

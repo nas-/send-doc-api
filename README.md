@@ -11,7 +11,7 @@ Simple script that sends PDF files to an API through Post requests, and stores t
 
 **DATAPATH** = Relative path from _BASEPATH_ for the documents to scan.
 
-#Usage
+# Usage
 ## Command line
 Set the variables above to what you need.
 
@@ -25,7 +25,8 @@ optional arguments:
   -rate RATE      Max concurrency for asyncio
 ```
 
-##Scanner
+## Scanner
+
 Main class of the scanner
 
 Main method is Scan. 

@@ -1,0 +1,8 @@
+[tool.isort]
+profile = "black"
+
+[tool.vulture]
+make_whitelist = true
+min_confidence = 80
+paths = ["tests",'main.py','db.py']
+sort_by_size = true

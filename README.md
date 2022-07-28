@@ -28,11 +28,10 @@ optional arguments:
 ##Scanner
 Main class of the scanner
 
-Main method is Scan. 
+Main method is Scan.
 
 **Params**:
 
-**sync**-> bool, true for sync operation (trough request library), False for async (Aiohttp).
+**sync**-> bool, true for sync operation (through request library), False for async (Aiohttp).
 
 **number**-> number of documents to scan.
-
